@@ -1,15 +1,18 @@
-function App() {
+import { RootLayout, Sidebar, Content, DraggableTopBar, ActionButtonsRow } from './components'
 
+const  App =  () => {
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-blue-500 mb-4">Hello Electron</h1>
-        <p className="text-gray-300 text-lg">Tailwind CSS is working! 🎉</p>
-        <button className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
-          Test Button
-        </button>
-      </div>
-    </div>
+    <>
+      <DraggableTopBar />
+      <RootLayout>
+        <Sidebar className='p-2'>
+          <ActionButtonsRow className='flex justify-between m-1' />
+        </Sidebar>
+        <Content className='border-l bg-zinc-900/500 border-l-white/20'>
+          <div>Content</div>
+        </Content>
+      </RootLayout>
+    </>
   )
 }
 
