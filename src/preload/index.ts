@@ -1,4 +1,4 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 
 // Custom APIs for renderer
 if(!process.contextIsolated){
@@ -6,7 +6,8 @@ if(!process.contextIsolated){
 }
 try {
   contextBridge.exposeInMainWorld('context', {
-    locale:navigator.language
+    locale:navigator.language,
+    getNotes: ()=>ipcRenderer.invoke('getNotes')
   })
 }
 catch (error) {
