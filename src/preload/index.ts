@@ -7,7 +7,8 @@ if(!process.contextIsolated){
 try {
   contextBridge.exposeInMainWorld('context', {
     locale:navigator.language,
-    getNotes: ()=>ipcRenderer.invoke('getNotes')
+    getNotes: ()=>ipcRenderer.invoke('getNotes'),
+    readNote: (title:string)=>ipcRenderer.invoke('readNote', title)
   })
 }
 catch (error) {

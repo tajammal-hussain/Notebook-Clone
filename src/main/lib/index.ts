@@ -1,5 +1,5 @@
 import { homedir } from "os"
-import { ensureDir, readdir,  stat,  } from 'fs-extra'
+import { ensureDir, readdir, stat, readFile } from 'fs-extra'
 
 // Root directory for the app
 export const getRootDir = ()=>{
@@ -22,6 +22,14 @@ const getNoteInfoFromFilename = async (filename:string)=>{
     const file = await stat(filePath)
     return {
         title: filename.replace('/\.md$/', ''),
-        lastModified: file.mtime
+        lastEditTime: file.mtime
     }
+}
+
+
+//Read the note content from the file
+export const readNote = async (title:string)=>{
+    const rootDir = getRootDir()
+    const filePath = `${rootDir}/${title}`
+    return readFile(filePath, { encoding: 'utf8' })
 }

@@ -6,6 +6,7 @@ declare global {
     context: {
       locale: string
       getNotes: () => Promise<NoteInfo[]>
+      readNote: (title:string) => Promise<string>
     }
   }
 }
