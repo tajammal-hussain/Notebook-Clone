@@ -4,15 +4,18 @@ import { NoteInfo } from "@shared/models";
 import { unwrap } from "jotai/utils";
 
 const loadNotes = async () => {
-    const notes = await window.context.getNotes()
-    // sort them by most recently edited
-    return notes.sort((a, b) => b.lastEditTime - a.lastEditTime)
+  const notes = await window.context.getNotes()
+
+  // sort them by most recently edited
+  return notes.sort((a, b) => b.lastEditTime - a.lastEditTime)
 }
 
-
 const notesAtomAsync = atom<NoteInfo[] | Promise<NoteInfo[]>>(loadNotes())
+
 export const notesAtom = unwrap(notesAtomAsync, (prev) => prev)
+
 export const selectedNoteIndexAtom = atom<number | null>(null)
+
 
 
 export const selectedNoteAtomAsync = atom(async (get) => {
@@ -39,21 +42,24 @@ export const selectedNoteAtom = unwrap(
   
 
 
-export const createEmptyNoteAtom = atom(null, async (get, set) => {
-    const notes = get(notesAtom)
-  
+    export const createEmptyNoteAtom = atom(null, async (get, set) => {
+        const notes = get(notesAtom)
+
     if (!notes) return
-  
-    const title = `Note ${notes.length + 1}`
-  
+
+    const title =`Note ${notes.length + 1}`
+
+    if (!title) return
+
     const newNote: NoteInfo = {
-      title,
-      lastEditTime: Date.now()
+        title,
+        lastEditTime: Date.now()
     }
+
     set(notesAtom, [newNote, ...notes.filter((note) => note.title !== newNote.title)])
-  
+
     set(selectedNoteIndexAtom, 0)
-})
+    })
 
 export const deleteNoteAtom = atom(null, async (get, set) => {
     const notes = get(notesAtom)

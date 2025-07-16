@@ -7,7 +7,6 @@ import { createEmptyNoteAtom } from "@renderer/store"
 export const NewNoteButton = ({...props}: ActionButtonProps) => {
   const createEmptyNote = useSetAtom(createEmptyNoteAtom)
   const handleClick = () => {
-    
     createEmptyNote()
   }
   return (
